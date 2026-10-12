@@ -6,6 +6,7 @@ Landing page and sign-in for Foresee, an AI launch red team that finds what coul
 
 - `index.html` is the landing page, with the live demo, risk dashboard, Creative Red Team, Launch Crystal, contradictions and the launch-review popup.
 - `signin.html` is the sign-in and sign-up page.
+- `pricing.html` is the pricing page, with plans, a billing toggle, the launch-risk calculator, a feature comparison and a pricing FAQ.
 
 Both are self-contained static files with fonts and images inlined. They need no build step and work on any static host (Vercel, Netlify, GitHub Pages).
 
