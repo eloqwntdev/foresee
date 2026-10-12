@@ -200,7 +200,7 @@ body[data-mode="signup"] .si-only{display:none}
         <p class="err" id="err2"></p>
         <button type="button" class="btn" id="signin"><span id="signinLab">Sign in</span><span class="bi"><svg viewBox="0 0 20 20" fill="none"><path d="M5 15L15 5M15 5H7M15 5V13" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
         <button type="button" class="alt si-only" id="magic">Email me a sign-in link instead</button>
-        <p class="terms su-only">By creating an account you agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+        <p class="terms su-only">By creating an account you agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</p>
       </div>
 
       <!-- step 3: magic link sent -->
@@ -213,7 +213,7 @@ body[data-mode="signup"] .si-only{display:none}
       </div>
     </div>
 
-    <div class="foot"><span>© Foresee</span><span><a href="#">Privacy</a> · <a href="#">Terms</a></span></div>
+    <div class="foot"><span>© Foresee</span><span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span></div>
   </section>
 
   <section class="stage" aria-hidden="true">
@@ -382,5 +382,6 @@ body[data-mode="signup"] .si-only{display:none}
   setTimeout(() => email.focus(), 300);
 })();
 </script>
+<script>if('serviceWorker' in navigator){addEventListener('load',()=>{try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}})}</script>
 </body>
 </html>
