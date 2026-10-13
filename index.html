@@ -4330,12 +4330,15 @@ function live() {
     if (lenis) lenis.scrollTo(y, { duration: 0.55, lock: true, force: true, onComplete: () => { lenis.stop(); release(); } });
     else { document.documentElement.style.overflow = 'hidden'; scrollTo({ top: y, behavior: 'smooth' }); setTimeout(release, 450); }
   }
+  // gentle catch: only a fast flick across the heading gets eased onto it; no lock, no hold
+  const CR_EASE = 0.43;
   function crSoftStops(p) {
-    if (crLastP !== null && !crHolding && p > crLastP) {
-      const hit = CR_STOPS.find(st => crLastP < st && p >= st);
-      if (hit !== undefined) { crLastP = hit; holdAt(crStopY(hit)); return; }
+    if (crLastP !== null && !crHolding && p > crLastP && crLastP < CR_EASE && p >= CR_EASE && lenis && Math.abs(lenis.velocity) > 12) {
+      crHolding = true;
+      lenis.scrollTo(crStopY(CR_EASE), { duration: 0.6, easing: t => 1 - Math.pow(1 - t, 3), lock: true, force: true, onComplete: () => { crHolding = false; } });
+      setTimeout(() => { crHolding = false; }, 800);
     }
-    if (!crHolding) crLastP = p;
+    crLastP = p;
   }
   const near = new Map([[hw, true], [cr, true], [cx, true]]);
   const nearIO = new IntersectionObserver(es => es.forEach(e => { near.set(e.target, e.isIntersecting); if (e.isIntersecting) requestAnimationFrame(onScroll); }), { rootMargin: '300px 0px' });
