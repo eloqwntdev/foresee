@@ -13,6 +13,8 @@ Landing page and sign-in for Foresee, an AI launch red team that finds what coul
 
 Both are self-contained static files with fonts and images inlined. They need no build step and work on any static host (Vercel, Netlify, GitHub Pages).
 
+`vercel.json` turns on clean URLs, so on Vercel pages are served without `.html` (`/pricing`, `/privacy`). Links to the home page use `/`.
+
 ## Configuration
 
 - `window.FORESEE_FORM_ENDPOINT`: set this on `index.html` to receive launch-review sign-ups. Each submission is POSTed as JSON. Without it, leads are kept only in the visitor's browser.

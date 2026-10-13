@@ -51,7 +51,7 @@ p{margin-top:14px;color:rgba(255,255,255,.7);font-size:16px;line-height:24px}
 </style>
 </head>
 <body>
-<a class="brand" href="index.html"><svg viewBox="0 0 24 24" fill="none"><path d="M12 1.75l8.5 8.75L12 22.25 3.5 10.5z" fill="currentColor" fill-opacity=".1"/><path d="M12 1.75L9.75 12.25 12 22.25 20.5 10.5z" fill="currentColor" fill-opacity=".22"/><path d="M12 1.75l8.5 8.75L12 22.25 3.5 10.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.5 10.5l6.25 1.75 10.75-1.75M12 1.75L9.75 12.25 12 22.25" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" stroke-opacity=".75"/></svg>Foresee</a>
+<a class="brand" href="/"><svg viewBox="0 0 24 24" fill="none"><path d="M12 1.75l8.5 8.75L12 22.25 3.5 10.5z" fill="currentColor" fill-opacity=".1"/><path d="M12 1.75L9.75 12.25 12 22.25 20.5 10.5z" fill="currentColor" fill-opacity=".22"/><path d="M12 1.75l8.5 8.75L12 22.25 3.5 10.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3.5 10.5l6.25 1.75 10.75-1.75M12 1.75L9.75 12.25 12 22.25" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" stroke-opacity=".75"/></svg>Foresee</a>
 <main class="card" id="card">
   <div class="scene" aria-hidden="true"><svg viewBox="0 0 220 220">
     <circle class="wave" cx="110" cy="104" r="70"/><circle class="wave w2" cx="110" cy="104" r="70"/><circle class="wave w3" cx="110" cy="104" r="70"/>
@@ -80,11 +80,11 @@ p{margin-top:14px;color:rgba(255,255,255,.7);font-size:16px;line-height:24px}
   const $ = id => document.getElementById(id); let n = 10, timer;
   const back = () => { document.body.classList.add('on'); $('card').classList.add('on'); $('status').textContent = 'Back online';
     $('h').innerHTML = 'You’re back.<br><span>Picking up where you left off.</span>'; $('p').textContent = 'Reconnecting…'; $('tip').style.visibility = 'hidden';
-    setTimeout(() => { const to = new URLSearchParams(location.search).get('from'); location.replace(to || (location.pathname.endsWith('offline.html') ? 'index.html' : location.href)); }, 900); };
+    setTimeout(() => { const to = new URLSearchParams(location.search).get('from'); location.replace(to || (location.pathname.endsWith('offline.html') ? '/' : location.href)); }, 900); };
   async function check() {
     const b = $('retry'); b.classList.add('busy');
     let ok = navigator.onLine;
-    if (ok) { try { await fetch('index.html?ping=' + Date.now(), { method: 'HEAD', cache: 'no-store' }); } catch (_) { ok = false; } }
+    if (ok) { try { await fetch('/?ping=' + Date.now(), { method: 'HEAD', cache: 'no-store' }); } catch (_) { ok = false; } }
     b.classList.remove('busy'); if (ok) back(); else { n = 10; }
   }
   $('retry').addEventListener('click', check);
