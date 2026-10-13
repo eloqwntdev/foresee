@@ -4317,7 +4317,7 @@ function live() {
   }
 
   // ---------- creative: soft stops — a fast scroll down settles on the full question and on the heading for a beat ----------
-  const CR_STOPS = [0.49];
+  const CR_STOPS = [];
   let crLastP = null, crHolding = false;
   function crStopY(stop) { const pin = cr.querySelector('.pin'), r = pin.getBoundingClientRect();
     return r.top + scrollY + stop * Math.max(1, r.height - innerHeight); }
@@ -4371,12 +4371,12 @@ function live() {
     const p = progress(cr);
     if (p < 0.3) { setState(cr, 1); setWords(cr, 0.12 + (p / 0.3) * 0.88); }
     else if (p < 0.42) { setState(cr, 2); setWords(cr, 1); }
-    else setState(cr, p < 0.55 ? 3 : 4);
+    else setState(cr, p < 0.47 ? 3 : 4);
     setCls(cr, 'chip-on', p > 0.07);
-    setCls(cr, 'dots-on', p > 0.44);
+    setCls(cr, 'dots-on', p > 0.4);
     updateQC();
     if (!params.has('nostop')) crSoftStops(p);
-    morphCards(clamp((p - 0.55) / 0.3));
+    morphCards(clamp((p - 0.47) / 0.33));
     }
 
 
