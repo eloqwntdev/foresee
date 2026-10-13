@@ -83,6 +83,12 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
   .pause{right:12px;bottom:calc(12px + env(safe-area-inset-bottom))}
 }
 @media (max-width:640px){.playing .top .home{display:none}}
+.acts.col{flex-direction:column;align-items:center;gap:6px}
+.acts.col .btn{min-width:200px}
+.skip{font-size:14px;color:rgba(255,255,255,.6);padding:10px}
+.skip:hover{color:#fff}
+#ovStart .card p:not(.hint){max-width:340px}
+#ovStart .hint{margin-top:22px;font-size:12px}
 </style>
 </head>
 <body>
@@ -104,16 +110,14 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 
 <!-- start -->
 <div class="ov on" id="ovStart"><div class="card">
-  <span class="code">ERROR 404 · LAUNCH READINESS 40</span>
+  <span class="code">ERROR 404</span>
   <h1>This page didn’t<br><span class="m">survive launch.</span></h1>
-  <span class="path" id="path">/this-page</span>
-  <p>Get it to 100 to find your way home. Catch the fixes, dodge the risks.</p>
-  <div class="legend"><span class="f"><b>✓</b>Fixes +5</span><span class="r"><b><em>!</em></b>Risks cost a life</span><span>3 lives</span></div>
-  <div class="acts">
-    <button class="btn btn-light" id="play">Stress-test this page<span class="bi"><svg viewBox="0 0 20 20" fill="none"><path d="M7 5l8 5-8 5z" fill="#fff"/></svg></span></button>
-    <a class="btn btn-ghost" href="index.html">Skip, take me home</a>
+  <p>Catch the fixes, dodge the risks. Reach 100 readiness to find your way home.</p>
+  <div class="acts col">
+    <button class="btn btn-light" id="play">Play<span class="bi"><svg viewBox="0 0 20 20" fill="none"><path d="M7 5l8 5-8 5z" fill="#fff"/></svg></span></button>
+    <a class="skip" href="index.html">or take me home</a>
   </div>
-  <p class="hint" id="hintTxt">Move with your mouse, <span class="kbd">←</span> <span class="kbd">→</span>, or drag on touch</p>
+  <p class="hint" id="hintTxt">Mouse or <span class="kbd">←</span> <span class="kbd">→</span> to move</p>
 </div></div>
 
 <!-- paused -->
@@ -143,9 +147,8 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
   const size = () => { D = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W * D; cv.height = H * D; ctx.setTransform(D, 0, 0, D, 0, 0); };
   size(); addEventListener('resize', size);
   const touch = matchMedia('(pointer: coarse)').matches;
-  if (touch) $('hintTxt').textContent = 'Drag anywhere to move the crystal';
+  if (touch) $('hintTxt').textContent = 'Drag to move';
   const p = location.pathname.split('/').pop() || '';
-  $('path').textContent = '/' + (p && !/^404(\.html)?$/.test(p) ? decodeURIComponent(p) : 'this-page') + ' → not found';
 
   const FIX = ['Clinical proof', 'Clear headline', 'Real reviews', 'Price anchor', 'Retargeting', 'Stock buffer', 'Simple CTA', 'Guarantee', 'Fast onboarding', 'Founder video'];
   const RISK = ['Vague claim', 'No proof', 'Stockout', 'Heavy discount', 'Expert jargon', 'Ad fatigue', 'Broken promise', 'Hidden price', 'One channel', '6-step signup'];
@@ -238,8 +241,8 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
     const fs = Math.min(W * .34, H * .5);
     ctx.save(); ctx.font = `500 ${fs}px "Neue Montreal", system-ui, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const prog = state === 'play' ? (score - START) / (GOAL - START) : 0;
-    ctx.fillStyle = `rgba(166,201,197,${.04 + prog * .1})`; ctx.fillText('404', W / 2, H * .48 + Math.sin(t / 1600) * 6);
-    ctx.lineWidth = 1; ctx.strokeStyle = `rgba(166,201,197,${.16 + prog * .3})`; ctx.strokeText('404', W / 2, H * .48 + Math.sin(t / 1600) * 6);
+    const dimS = state === 'start' ? .45 : 1; ctx.fillStyle = `rgba(166,201,197,${(.04 + prog * .1) * dimS})`; ctx.fillText('404', W / 2, H * .48 + Math.sin(t / 1600) * 6);
+    ctx.lineWidth = 1; ctx.strokeStyle = `rgba(166,201,197,${(.16 + prog * .3) * dimS})`; ctx.strokeText('404', W / 2, H * .48 + Math.sin(t / 1600) * 6);
     ctx.restore();
     // horizon floor
     const fy = H - (touch ? 70 : 64);
